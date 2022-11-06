@@ -1,0 +1,214 @@
+@charset "UTF-8"
+
+article, aside, footer, header, main, nav, section{
+    display: block;
+}
+
+body {
+    background-color: #212F3C;
+    color:azure;
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+    height: 50px;
+    background-color: #292c2f;
+}
+nav li {
+    display: inline;
+    padding: 15px;
+    /* background-color: crimson; */
+    margin: 2px;
+    
+
+}
+nav li:hover {
+    background-color: rgb(243, 101, 101);
+}
+nav li a:active {
+    background-color: crimson;
+}
+
+
+nav li a{
+    padding: 5px;
+    color:aliceblue;
+    font-weight: bold;
+}
+
+.usernav ul {
+    text-align: right;
+
+}
+
+header img {
+    width: 1280px;
+    background-position: center;
+    position: relative;
+}
+
+
+
+nav li a:hover {
+    color: white;
+}
+
+.banner {
+    background-color:#292c2f;
+    /* padding: 10px 20px; */
+    display: inline;
+}
+
+main {
+    background-color: rgba(227, 204, 204, 0.652);
+    padding: 40px;
+    min-height: 480px;
+    margin-top: 10px;
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+main td.trend-cell{
+    background-color: rgba(192, 192, 192, 0.703);
+    width: 250px;
+    height: 350px;
+    text-align: center;
+    margin: 15px 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 5px 5px 5px 5px;
+
+
+}
+
+main li a{
+    line-height: 2;
+
+}
+
+main  a:visited {
+    text-decoration: none;
+}
+
+main table{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+img.trade-info{
+    height: 250px;
+    margin-right: 250px;
+}
+.trade-details{
+    width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: justify;
+
+
+}
+
+td a img {
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px 15px 15px 15px;
+}
+tr {
+    align-items: center ;
+}
+
+
+main input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px 5px 5px 5px;
+
+  }
+
+main textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px 5px 5px 5px;
+
+  }
+
+main select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px 5px 5px 5px;
+
+  }
+  main input[type=submit] {
+    background-color:  rgba(255, 255, 255, 0.01);
+    color: white;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px 5px 5px 5px;
+
+  }
+
+/* footer  */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 300px;
+}
+
+
+
+/* Sticky footer style and color
+-------------------------------------------------- */
+footer {
+  padding-top: 30px;
+  background-color: #292c2f;
+  color: #bbb;
+}
+
+footer a {
+  color: #999;
+  text-decoration:none;
+}
+
+footer a:hover, footer a:focus {
+  color: #aaa;
+  text-decoration:none;
+  border-bottom:1px dotted #999;
+}
+
+footer .form-control {
+    background-color: #1f2022;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    border: none;
+    resize: none;
+    color: #d1d2d2;
+    padding: 0.7em 1em;
+}
+
+footer td {
+    padding: 10px;
+}

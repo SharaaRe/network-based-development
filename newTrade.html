@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>New Trade</title>
+        <link rel="stylesheet" type="text/css" href="style.css" /> 
+        <!--[if lt IE 9]>
+        <script>
+            document.createElement("article");
+            document.createElement("aside");
+            document.createElement("header");
+            document.createElement("footer");
+            document.createElement("section");
+            document.createElement("main");
+            document.createElement("nav");
+
+
+        </script>
+        <![endif]-->
+
+    </head>
+    <body>
+        <header class="banner">
+            <nav class="usernav">
+                <ul>
+                    <li ><a class="nav-item" href="">Sign in </a></li>
+                    <li ><a class="nav-item" href="">Sign up </a></li>
+
+                </ul>
+            </nav>
+            <div class="banner-container">
+                <img src="images/banner.jpg">
+                <!-- <div class="header-title">
+                    Anime Trading Hub
+                </div> -->
+                
+                
+            </div>
+
+
+        </header>
+        <nav class="mainnav">
+            <ul>
+                <li><a class="nav-item" href=index.html> Home </a> </li>
+                <li><a class="nav-item" href=trades.html> Trades </a> </li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <div class="new-trade">
+                <h2>New Trade</h2>
+                <form>
+                    Category: <select id="categories" name="categories" >
+                        <option value="manga">Manga</option>
+                        <option value="action-figure">Action Figure</option>
+                        <option value="anime-records">Anime Records</option>
+                        <option value="other">Other (T-Shirt, Accessories, etc.)</option>
+                      </select>
+                        <br>
+                      Title: <input type="title" id="trade-title" name="trade-title">
+                        <br>
+                      Details: <textarea id="trade-details" name="trade-details"></textarea>
+                      <br>
+                      <input type="submit">
+
+
+
+
+
+                </form>
+
+                
+                
+            </div>
+        </main>
+        <footer>
+            <table>
+                <tr>
+            <td>
+                <h3>Follow Us</h3>
+                <ul class="footer-li">
+                    <li><a href="instagram.com"> Instagram </a></li> 
+                    <!-- add image logo ins -->
+                    <li><a href="facebook.com">Facebook</a></li>
+                    <li><a href=twitter.com> Twitter </a> </li>
+                    <li><a href=github.com> Github </a> </li>
+
+
+                </ul>
+            </td>
+            <td>
+                <h3>Quick Links</h3>
+                <ul class="footer-li">
+                    <li><a href="index.html"> Home </a></li> 
+                    <!-- add image logo ins -->
+                    <li><a href="trades.html">Trades</a></li>
+                    <li><a href=""> Sign in  </a> </li>
+                    <li><a href=""> Sign up  </a> </li>
+
+
+                </ul>
+            </td>
+        </tr>
+        </table>
+            <div>
+                <h3>Contact Us</h3>
+                <p>Address: 9201 University Blvs, Charlotte, NC</p>
+                <p>Phone: +1 980 980 9800</p>
+            </div>
+
+        </footer>
+        
+    </body>
+</html>
