@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs')%>
+
+<main class="main-content">
+
+
+
+    <div class="trade-info">
+        <div class="trade-intro">
+            <h3 style="vertical-align:middle; display:inline;"><%=trade.title%> <small></small> </h3> 
+            <h5><%=trade.category%></h5>
+            <small>Posted <%=trade.createdAt%></small> 
+
+            <form aligning="left">
+                <button type= "submit" formethod = "GET" formaction ="/trades/<%=trade.id%>/edit">Edit</button>
+            </form> 
+            <img class="trade-info" src="/images/<%=trade.image%>">
+
+
+
+
+            <!-- <p style="vertical-align:middle; display:inline;"><%=trade.discription%></p> -->
+        </div>
+        <div class="trade-details">
+            <h3>Details</h3>
+            <p> <%=trade.discription%></p>
+            <form method="POST" action = "/trades/<%=trade.id%>?_method=DELETE">
+                <button type= "submit">Delete</button>    
+            </form>
+        </div>
+
+        
+    </div>
+</main>
+<%- include('../partials/footer.ejs')%>
