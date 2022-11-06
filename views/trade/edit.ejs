@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs')%>
+
+<main class="main-content">
+    <div class="new-trade">
+        <h2>Edit Trade</h2>
+        <form method = 'POST' action="/trades/<%=trade.id%>?_method=PUT">            
+            Category: <select id="categories" name="category" >
+                <%categories.forEach(category => {%>
+                    <option value="<%=category%>" <% if (category === trade.category) {%> selected <%}%>> <%=category%></option>
+                    <%})%>
+              </select>
+                <br>
+              Title: <input type="title" id="trade-title" name="title" value = "<%= trade.title%>">
+                <br>
+              Details: <textarea id="trade-details" name="discription"><%= trade.discription%></textarea>
+              <br>
+              <input type="submit">
+        </form>      
+    </div>
+</main>
+
+<%- include('../partials/footer.ejs')%>

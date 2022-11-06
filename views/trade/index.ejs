@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs')%>
+
+    <main>
+    <ul class="trending-trades">
+        <table>
+            <tr>
+                <%categories.forEach(category => {%>
+                <td class="trend-cell">                
+                    <article>
+                    <h3><%=category%></h3>
+                    <ul>
+                        <%trades.forEach(trade => {%>
+                            <%console.log(trade)%>
+                            <%if (trade.category === category) { %>
+                                <li> <a href="trades/<%=trade.id%>"><%=trade.title%></a></li>
+
+                            <%}%>
+                        <%})%>
+
+                    </ul>
+
+                </article>
+                </td>
+                <%})%>
+            </tr>
+        </table>
+
+    </ul>
+    </main>
+
+    <%- include('../partials/footer.ejs')%>
