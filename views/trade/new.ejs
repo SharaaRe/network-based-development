@@ -4,15 +4,15 @@
     <div class="new-trade">
         <h2>New Trade</h2>
         <form action = '/trades' method = 'POST'>            
-            Category: <select id="categories" name="categories" >
+            Category: <select id="category" name="category" >
                 <%categories.forEach(category => {%>
                 <option value="<%=category%>"> <%=category%></option>
                 <%})%>
               </select>
                 <br>
-              Title: <input type="title" id="trade-title" name="title">
+              Title: <input type="title" id="trade-title" name="title", required>
                 <br>
-              Details: <textarea id="trade-details" name="discription"></textarea>
+              Details: <textarea id="trade-details" name="discription", required></textarea>
               <br>
               <input type="submit">
         </form>
