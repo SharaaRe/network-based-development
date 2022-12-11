@@ -6,9 +6,10 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const tradeRoutes = require('./routes/tradeRoutes');
+const offerRoutes = require('./routes/offerRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // create app
 app = express();
@@ -59,6 +60,8 @@ app.get('/', (req, res)=>{
 });
 
 app.use('/trades', tradeRoutes);
+
+app.use('/offers/', offerRoutes)
 
 app.use('/users', userRoutes);
 

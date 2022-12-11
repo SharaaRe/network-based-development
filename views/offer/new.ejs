@@ -1,0 +1,35 @@
+<%- include('../partials/header.ejs')%>
+
+<main class="main-content">
+    <div class="new-offer">
+        <h2>Create an Offer</h2>
+        <form action = '/offers' method = 'POST'>   
+            <input type="hidden" id="receiverItem" name="receiverItem" value="<%=trade._id%>">
+            Select an item to trade with <a href="/trades/<%=trade._id%>"><%=trade.title%></a> offered by <%=trade.owner.firstName%> <%=trade.owner.lastName%>:
+            <%if (ownerItems.length) {%>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td>Title</td>
+                        <td>Category</td>
+                        <td>Status</td>
+                    </tr>
+                <%ownerItems.forEach(item => {%>
+                <tr>
+                    <td><input type="radio" id="ownerItem" name="ownerItem" value="<%=item._id%>"></td>
+                    <td><%=item.title%></td>
+                    <td><%=item.category%></td>
+                    <td><%=item.stat%></td>
+                </tr>
+                <%})%>
+                </table>
+                <%}%>
+            <input type="submit">
+        </form>
+
+        
+        
+    </div>
+</main>
+
+<%- include('../partials/footer.ejs')%>
