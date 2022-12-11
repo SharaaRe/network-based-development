@@ -25,10 +25,18 @@ router.get('/:id', validateid, controller.show);
 
 router.get('/:id/edit',isAuthenticated,  validateid, isAuthor,  controller.edit);
 
-// PUT /stories/:id/edit: update the trade identified by id
+// PUT /trades/:id/edit: update the trade identified by id
 
 router.put('/:id', isAuthenticated, validateid, isAuthor, controller.update);
 
 router.delete('/:id', validateid, isAuthor, controller.delete);
+
+//POST /trades/:id/watchlist 
+
+router.post('/:id/watchlist', isAuthenticated, controller.watchlist);
+
+router.delete('/:id/watchlist', isAuthenticated, controller.deleteFromWatchlist);
+
+
 
 module.exports = router;

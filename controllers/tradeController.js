@@ -1,4 +1,6 @@
 const { Model } = require('mongoose');
+const { findById, findByIdAndUpdate } = require('../models/offer');
+const user = require('../models/user');
 const model = require('../models/trade');
 
 
@@ -37,12 +39,15 @@ exports.create = (req, res, next)=>{
 
 exports.show = (req, res, next)=>{
     let id = req.params.id;
-
-    model.findById(id).populate('owner', 'firstName lastName')
-    .then(trade=> {
+    Promise.all([
+        model.findById(id).populate('owner', 'firstName lastName'),
+        user.findById(req.session.user)
+    ])
+    .then(results=> {
+        const [trade, user] = results;
         if (trade) {
             console.log('trade: ', trade);
-            res.render('./trade/show', {trade});
+            res.render('./trade/show', {trade, user});
     
         } else {
             
@@ -113,4 +118,60 @@ exports.delete = (req, res, next)=>{
              next(err);
     }})
     .catch(err=>next(err));
+};
+
+
+exports.watchlist = (req, res, next) => {
+    let id = req.params.id;
+    model.findById(id)
+    .then(trade=>{
+        if (trade) {
+            user.updateOne({_id: req.session.user}, {$addToSet: {watchlist: id}})
+            .then(result=>{
+                console.log(result);
+                if(result.modifiedCount){
+                    req.flash('success', 'The item ' + trade.title + ' is successfully added to your watchlist!');
+                    res.redirect('/users/profile');
+                }else {
+                    let err = new Error('Unable to add item to the watchlist!');
+                    err.status = 503;
+                    next(err);
+                }
+            }
+        ).catch(err=>next(err));
+        } else {
+            let err = new Error('Trade not found!');
+            err.status = 404;
+            next(err);
+        }
+
+
+    }).catch(err=>next(err));
+};
+
+exports.deleteFromWatchlist = (req, res, next) => {
+    let id = req.params.id;
+    model.findById(id)
+    .then(trade=>{
+        if (trade) {
+            user.updateOne({_id: req.session.user}, {$pull: {watchlist: id}})
+            .then(result=>{
+                console.log('result', result);
+                if(result.acknowledged){
+                    req.flash('success', 'The item' + trade.title + ' is deleted from your watchlist!');
+                    res.redirect('back');
+                }else {
+                    let err = new Error('Unable to remove item from watchlist!');
+                    next(err);
+                }
+            }
+        ).catch(err=>next(err));
+        } else {
+            let err = new Error('Trade not found!');
+            err.status = 404;
+            next(err);
+        }
+
+
+    }).catch(err=>next(err));
 };

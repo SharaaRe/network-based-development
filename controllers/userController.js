@@ -60,7 +60,12 @@ exports.profile = (req, res, next)=>{
     let id = req.session.user;
     let categories = Trade.schema.path('category').enumValues;
 
-    Promise.all([model.findById(id), Trade.find({owner: id}), Offer.find({owner: id, stat: 'pending'}).populate('ownerItem'), Offer.find({receiver:id, stat:'pending'}).populate('receiverItem')])
+    Promise.all([
+        model.findById(id).populate('watchlist'),
+        Trade.find({owner: id}), 
+        Offer.find({owner: id, stat: 'pending'}).populate('ownerItem'), 
+        Offer.find({receiver:id, stat:'pending'}).populate('receiverItem'),
+    ])
     .then(results=>{
         const [user, trades, sentOffers, receivedOffers] = results;
         res.render('./user/profile', {user, trades, categories, sentOffers, receivedOffers});
@@ -75,5 +80,4 @@ exports.logout = (req, res, next)=>{
        else
             res.redirect('/');  
     });
-   
  };

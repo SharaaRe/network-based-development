@@ -27,14 +27,22 @@
         <div class="trade-details">
             <h3>Details</h3>
             <p> <%=trade.discription%></p>
-            <% if(user == trade.owner._id) { %>
+            <% if(user.id == trade.owner._id) { %>
                 <form method="POST" action = "/trades/<%=trade.id%>?_method=DELETE">
                     <button type= "submit">Delete</button>    
                 </form>
             <%}else{%>
-                <form method="GET" action = "/offers/<%=trade.id%>/new">
-                    <button type= "submit">Trade</button>    
-                </form>
+                <form >
+                <button type = "submit" method="GET" action = "/offers/<%=trade.id%>/new">Trade</button>
+                <%console.log(user)%>
+                <%if (user.watchlist.includes(trade.id)){%>
+                    <button type = "submit" formmethod = "POST" formaction = "/trades/<%=trade.id%>/watchlist?_method=DELETE">Remove from Watchlist</button>
+                <%} else {%>
+                    <button type = "submit" formmethod = "POST" formaction = "/trades/<%=trade.id%>/watchlist">Add To Watchlist</button>
+
+                <%}%>
+                 </form>
+
             <%}%>
 
         </div>

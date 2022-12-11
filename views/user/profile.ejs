@@ -34,6 +34,34 @@
         <%} else {%>
             <p>You haven't created any trades yet!</p>
         <%}%>
+        <hr>
+        <h3>Watchlist</h3>
+        <% if (user.watchlist.length) { %>
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td>Category</td>
+                    <td>Status</td>
+                </tr>
+                <%user.watchlist.forEach(trade => {%>
+                <tr>
+                    <td><%=trade.title%></td>
+                    <td><%=trade.category%></td>
+                    <td><%=trade.stat%></td>
+                    <td>
+                        <form>
+                            <button type = "submit" formmethod = "POST" formaction = "/trades/<%=trade._id%>/watchlist?_method=DELETE">Remove</button>
+                         </form>
+                    </td>
+                    
+                </tr>
+                <%})%>
+            </table>
+            <%} else {%>
+                <p>You haven't added any trade item to your watchlist yet!</p>
+            <%}%>
+        <hr>
+
         <h3>Sent Offers</h3>
         <% if (sentOffers.length) { %>
             <table>
@@ -59,6 +87,8 @@
             <%} else {%>
                 <p>You haven't created any trades yet!</p>
             <%}%>
+        <hr>
+
             <h3>Received Offers</h3>
         <% if (receivedOffers.length) { %>
             <table>
@@ -74,8 +104,8 @@
                     <td><%=offer.stat%></td>
                     <td>
                         <form>
-                            <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/reject?_method=PUT">Reject</button>
-                            <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/accept?_method=PUT">Aceept</button>
+                        <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/reject?_method=PUT">Reject</button>
+                        <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/accept?_method=PUT">Aceept</button>
 
                          </form>
                     </td>
