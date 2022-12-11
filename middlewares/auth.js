@@ -1,4 +1,7 @@
 const Trade = require('../models/trade');
+const Offer = require('../models/offer');
+const trade = require('../models/trade');
+
 
 //check if user is a guest
 exports.isGuest = (req, res, next) => {
@@ -34,6 +37,77 @@ exports.isAuthor = (req, res, next) => {
                 return next(err);
             }
         }
+    })
+    .catch(err=>next(err));
+};
+
+
+exports.isOfferRelated = (req, res, next) => {
+    let id = req.params.id;
+    Offer.findById(id)
+    .then(offer=>{
+        if (offer) {
+            if (offer.owner == req.session.user || offer.receiver == req.session.user) {
+                next();
+            } else {
+                let err = new Error('Unauthorized to access the resources')
+                err.status = 401;
+                return next(err);
+            }
+        }
+    })
+    .catch(err=>next(err));
+};
+
+exports.isTradeOwner= (req, res, next) => {
+    let offer = req.body;
+    Trade.findById(offer.ownerItem)
+    .then(trade=>{
+        if (trade) {
+            if (trade.owner == req.session.user) {
+                next();
+            } else {
+                let err = new Error('Unauthorized to access the resources')
+                err.status = 401;
+                return next(err);
+            }
+        } 
+    })
+    .catch(err=>next(err));
+};
+
+
+exports.isOwner = (req, res, next) => {
+    let id = req.params.id;
+    Offer.findById(id)
+    .then(offer=>{
+        if (offer) {
+            if (offer.owner == req.session.user) {
+                next();
+            } else {
+                let err = new Error('Unauthorized to access the resources')
+                err.status = 401;
+                return next(err);
+            }
+        } 
+    })
+    .catch(err=>next(err));
+};
+
+
+exports.isReceiver = (req, res, next) => {
+    let id = req.params.id;
+    Offer.findById(id)
+    .then(offer=>{
+        if (offer) {
+            if (offer.receiver == req.session.user) {
+                next();
+            } else {
+                let err = new Error('Unauthorized to access the resources')
+                err.status = 401;
+                return next(err);
+            }
+        } 
     })
     .catch(err=>next(err));
 };

@@ -27,6 +27,7 @@ exports.new = (req, res, next) => {
     })
 }
 
+//check if user is owner of ownerItem
 exports.create = (req, res, next)=>{
     // check if both trades are not sold: it can be a middleware later
     // Authenticate if the sender is the owner of trade
@@ -45,7 +46,10 @@ exports.create = (req, res, next)=>{
                 offer.save()
                 .then(()=>{
                     receiverItem.stat = 'pending';
+                    receiverItem.offer = offer.id;
                     ownerItem.stat = 'pending';
+                    ownerItem.offer = offer.id;
+
                     Promise.all([receiverItem.save(), ownerItem.save()])
                     .then(results => res.redirect('/users/profile'))
                     .catch(err=>next(err));
@@ -69,6 +73,126 @@ exports.create = (req, res, next)=>{
         }
     }).catch(err => next(err));
 };
+
+
+//add middleware to check if user is either the owner of reciever
+exports.show = (req, res, next)=>{
+    let id = req.params.id;
+    model.findById(id).populate('ownerItem').populate('receiverItem')
+    .then(offer=>{
+        if (offer) {
+            console.log('offer: ', offer);
+            res.render('./offer/show', {offer});
+    
+        } else {
+            
+            let err = new Error('Cannot find a trade with id' + id);
+            err.status = 404;
+            next(err);
+            
+        }
+    })
+    .catch(err=>next(err));
+};
+
+//add middleware to check if user is either the owner of reciever
+//TODO: delete offers when the trades are deleted
+exports.delete = (req, res, next)=>{
+    let id = req.params.id;
+    console.log('here');
+    model.findByIdAndDelete(id, {userFindAndModify: false}).populate('ownerItem').populate('receiverItem')
+    .then(offer=>{
+         if(offer){
+            console.log(offer);
+            console.log()
+            Promise.all([
+                trade.findByIdAndUpdate(offer.receiverItem.id, {'stat': 'available'}, {userFindAndModify: false, runValidators: true}),
+                trade.findByIdAndUpdate(offer.ownerItem.id, {'stat': 'available'}, {userFindAndModify: false, runValidators: true})
+            ]).then(results=>{
+                req.flash('success', 'You canceled the offer to trade ' + offer.receiverItem.title + ' with '+ offer.ownerItem.title + '.');
+
+                res.redirect('/users/profile');
+            }).catch(err=>{
+                req.flash('error', 'Unable to cancel the offer');
+
+                next(err);
+            })
+         }else{
+             let err = new Error('Cannot find an offer with id ' + id);
+             err.status = 404;
+             next(err);
+    }})
+    .catch(err=>next(err));
+};
+
+
+exports.accept = (req, res, next)=>{
+    let id = req.params.id;
+    
+    model.findByIdAndUpdate(id, {'stat': 'accepted'}, {userFindAndModify: false, runValidators: true}).populate('ownerItem').populate('receiverItem')
+    .then(offer=>{
+            if(offer){
+                Promise.all([
+                    trade.findByIdAndUpdate(offer.receiverItem.id, {'stat': 'traded'}, {userFindAndModify: false, runValidators: true}),
+                    trade.findByIdAndUpdate(offer.ownerItem.id, {'stat': 'traded'}, {userFindAndModify: false, runValidators: true})
+                ]).
+                then(results=> {
+                    
+                    req.flash('success', 'The item' + offer.receiverItem.title + 'is successfully traded with '+ offer.ownerItem.title + '!');
+                    res.redirect('/users/profile');
+                }).catch(err=>{
+                    req.flash('error', 'Unable to accept the offer');
+    
+                    next(err);
+                })
+
+            }else{
+                let err = new Error('Cannot find a trade with id ' + id);
+                err.status = 404;
+                next(err);
+            }})
+    .catch(err=>{
+        if(err.name === 'ValidationError'){
+            err.status = 400;
+        }
+        next(err);
+    });
+};
+
+
+exports.reject = (req, res, next)=>{
+    let id = req.params.id;
+    
+    model.findByIdAndUpdate(id, {'stat': 'rejected'}, {userFindAndModify: false, runValidators: true}).populate('ownerItem').populate('receiverItem')
+    .then(offer=>{
+            if(offer){
+                Promise.all([
+                    trade.findByIdAndUpdate(offer.receiverItem.id, {'stat': 'available'}, {userFindAndModify: false, runValidators: true}),
+                    trade.findByIdAndUpdate(offer.ownerItem.id, {'stat': 'available'}, {userFindAndModify: false, runValidators: true})
+                ]).
+                then(results=> {
+                    
+                    req.flash('success', 'You rejected the offer to trade ' + offer.receiverItem.title + ' with '+ offer.ownerItem.title + '.');
+                    res.redirect('/users/profile');            
+                }).catch(err=>{
+                        req.flash('error', 'Unable to reject the offer');
+        
+                        next(err);
+                    })
+
+            }else{
+                let err = new Error('Cannot find a trade with id ' + id);
+                err.status = 404;
+                next(err);
+            }})
+    .catch(err=>{
+        if(err.name === 'ValidationError'){
+            err.status = 400;
+        }
+        next(err);
+    });
+};
+
 
 
 // exports.

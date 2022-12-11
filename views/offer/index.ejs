@@ -1,29 +1,62 @@
 <%- include('../partials/header.ejs')%>
 
     <main>
-    <ul class="trending-trades">
+    <ul class="offer">
+        <% if (receivedOffers.length) { %>
         <table>
             <tr>
-                <%categories.forEach(category => {%>
-                <td class="trend-cell">                
-                    <article>
-                    <h3><%=category%></h3>
-                    <ul>
-                        <%trades.forEach(trade => {%>
-                            <%console.log(trade)%>
-                            <%if (trade.category === category) { %>
-                                <li> <a href="/trades/<%=trade.id%>"><%=trade.title%></a></li>
-
-                            <%}%>
-                        <%})%>
-
-                    </ul>
-
-                </article>
-                </td>
-                <%})%>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Status</td>
             </tr>
+            <%trades.forEach(trade => {%>
+            <tr>
+                <td>                
+                    <a href="/offers/<%=offer.id%>"><%=trade.title%></a></li>
+                </td>
+                <td><%=trade.owner%></td>
+                <td>
+                    <form>
+                        <button type = "submit" formmethod = "GET" formaction = "/offers/<%= offer.id%>/reject">Reject</button>
+                        <button type = "submit" formmethod = "GET" formaction = "/offers/<%= offer.id%>/accept">Accept</button>
+                     </form>
+                </td>
+                
+            </tr>
+            <%})%>
         </table>
+        <%} else {%>
+            <p>You haven't received any offers yet!</p>
+        <%}%>
+
+    </ul>
+    <ul class="offer">
+        <% if (sentOffers.length) { %>
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Status</td>
+            </tr>
+            <%trades.forEach(trade => {%>
+            <tr>
+                <td>                
+                    <a href="/offers/<%=offer.id%>"><%=trade.title%></a></li>
+                </td>
+                <td><%=trade.reciever%></td>
+                <td>
+                    <form>
+                        <button type = "submit" formmethod = "GET" formaction = "/offers/<%= offer.id%>/Withdraw">Withdraw</button>
+                        <!-- <button type = "submit" formmethod = "GET" formaction = "/offers/<%= offer.id%>/accept">Accept</button> -->
+                     </form>
+                </td>
+                
+            </tr>
+            <%})%>
+        </table>
+        <%} else {%>
+            <p>You haven't received any offers yet!</p>
+        <%}%>
 
     </ul>
     </main>

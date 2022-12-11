@@ -1,7 +1,7 @@
 <%- include('../partials/header.ejs')%>
 
     <main>
-    <ul class="trending-trades">
+    <!-- <ul class="trending-trades"> -->
     <h2>Welcome, <%=user.firstName%></h2>
         <% if (trades.length) { %>
         <table>
@@ -13,14 +13,18 @@
             <%trades.forEach(trade => {%>
             <tr>
                 <td>                
-                    <a href="/trades/<%=trade.id%>"><%=trade.title%></a></li>
+                    <a href="/trades/<%=trade._id%>"><%=trade.title%></a></li>
                 </td>
                 <td><%=trade.category%></td>
                 <td><%=trade.stat%></td>
                 <td>
                     <form>
-                        <button type = "submit" formmethod = "GET" formaction = "/trades/<%= trade.id%>/edit">Edit</button>
-                        <button type = "submit" formmethod = "POST" formaction = "/trades/<%= trade.id%>?_method=DELETE">Delete</button>
+                        <button type = "submit" formmethod = "GET" formaction = "/trades/<%= trade._id%>/edit">Edit</button>
+                        <button type = "submit" formmethod = "POST" formaction = "/trades/<%= trade._id%>?_method=DELETE">Delete</button>
+                        <%if (trade.stat === 'pending') { console.log(trade.offer)%>
+                        <button type = "submit" formmethod = "GET" formaction = "/offers/<%=trade.offer%>">Manage Offer</button>
+                            
+                        <%}%>
                      </form>
                 </td>
                 
@@ -30,8 +34,59 @@
         <%} else {%>
             <p>You haven't created any trades yet!</p>
         <%}%>
+        <h3>Sent Offers</h3>
+        <% if (sentOffers.length) { %>
+            <table>
+                <tr>
+                    <td>Trading Item</td>
+                    <td>Category</td>
+                    <td>Status</td>
+                </tr>
+                <%sentOffers.forEach(offer => {%>
+                <tr>
+                    <td><%=offer.ownerItem.title%></td>
+                    <td><%=offer.ownerItem.category%></td>
+                    <td><%=offer.stat%></td>
+                    <td>
+                        <form>
+                            <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>?_method=DELETE">Cancel</button>
+                         </form>
+                    </td>
+                    
+                </tr>
+                <%})%>
+            </table>
+            <%} else {%>
+                <p>You haven't created any trades yet!</p>
+            <%}%>
+            <h3>Received Offers</h3>
+        <% if (receivedOffers.length) { %>
+            <table>
+                <tr>
+                    <td>Trading Item</td>
+                    <td>Category</td>
+                    <td>Status</td>
+                </tr>
+                <%receivedOffers.forEach(offer => {%>
+                <tr>
+                    <td><%=offer.receiverItem.title%></td>
+                    <td><%=offer.receiverItem.category%></td>
+                    <td><%=offer.stat%></td>
+                    <td>
+                        <form>
+                            <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/reject?_method=PUT">Reject</button>
+                            <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/accept?_method=PUT">Aceept</button>
 
-    </ul>
+                         </form>
+                    </td>
+                    
+                </tr>
+                <%})%>
+            </table>
+            <%} else {%>
+                <p>You haven't created any trades yet!</p>
+            <%}%>
+    <!-- </ul> -->
     </main>
 
     <%- include('../partials/footer.ejs')%>

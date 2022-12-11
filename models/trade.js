@@ -11,7 +11,8 @@ const tradeSchema = new Schema({
     stat: {type: String, enum: ['available', 'pending', 'traded'], default: 'available'},
     category: {type: String, required:[true, 'category is required'], enum: ['Anime', 'Manga', 'Accessories', 'Action Figures']},
     image: {type: String, default: 'image_not_available.png'},
-    owner: {type: Schema.Types.ObjectId, ref: 'User'}
+    owner: {type: Schema.Types.ObjectId, ref: 'User'},
+    offer: {type: Schema.Types.ObjectId, ref: 'Offer'}
 },
 {timeseries: true}
 );

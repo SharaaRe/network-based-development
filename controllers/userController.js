@@ -1,10 +1,10 @@
-const model = require('../models/user')
-const Trade = require('../models/trade')
-
+const model = require('../models/user');
+const Trade = require('../models/trade');
+const Offer = require('../models/offer');
 
 exports.new = (req, res, next) => {
     res.render('./user/new');
-}
+};
 
 
 exports.create = (req, res, next) => {
@@ -23,11 +23,11 @@ exports.create = (req, res, next) => {
         next(err);
 
     });
-}
+};
 
 exports.getUserLogin = (req, res, next) => {
     res.render('./user/login');
-}
+};
 
 exports.login = (req, res, next)=>{
 
@@ -60,10 +60,10 @@ exports.profile = (req, res, next)=>{
     let id = req.session.user;
     let categories = Trade.schema.path('category').enumValues;
 
-    Promise.all([model.findById(id), Trade.find({owner: id})])
+    Promise.all([model.findById(id), Trade.find({owner: id}), Offer.find({owner: id, stat: 'pending'}).populate('ownerItem'), Offer.find({receiver:id, stat:'pending'}).populate('receiverItem')])
     .then(results=>{
-        const [user, trades] = results;
-        res.render('./user/profile', {user, trades, categories});
+        const [user, trades, sentOffers, receivedOffers] = results;
+        res.render('./user/profile', {user, trades, categories, sentOffers, receivedOffers});
     })
     .catch(err=>next(err));
 };

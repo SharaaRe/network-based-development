@@ -1,0 +1,47 @@
+<%- include('../partials/header.ejs')%>
+
+<main class="main-content">
+
+
+
+    <div class="trade-info">
+        <div class="trade-intro">
+
+            <% if(user == offer.owner._id) { %>
+
+                <form aligning="left">
+
+                    <button type= "submit" formethod = "POST" formaction ="/offers/<%=offer._id%>?_method=DELETE">Cancel</button>
+                </form> 
+            <%}else {console.log(user, offer.owner._id);%>
+                <form aligning="left">
+                    <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/reject?_method=PUT">Reject</button>
+                    <button type = "submit" formmethod = "POST" formaction = "/offers/<%=offer._id%>/accept?_method=PUT">Aceept</button>
+
+                 </form>
+             <%}%>
+             <table>
+                <tr>
+                    <td class="trend-cell">                
+                        <article>
+                        <h3><a href="/trades/<%=offer.ownerItem._id%>"><%=offer.ownerItem.title%></a></h3>
+
+                        <p><img class="trade-info" src="/images/<%=offer.ownerItem.image%>"></p>
+    
+                    </article>
+                    </td>
+                    <td class="trend-cell">                
+                        <article>
+                        <h3><a href="/trades/<%=offer.receiverItem._id%>"><%=offer.receiverItem.title%></a></h3>
+
+                        <p><img class="trade-info" src="/images/<%=offer.receiverItem.image%>"></p>
+    
+                    </article>
+                    </td>
+                </tr>
+            </table>
+
+        
+    </div>
+</main>
+<%- include('../partials/footer.ejs')%>
