@@ -50,10 +50,14 @@ exports.isOfferRelated = (req, res, next) => {
             if (offer.owner == req.session.user || offer.receiver == req.session.user) {
                 next();
             } else {
-                let err = new Error('Unauthorized to access the resources')
+                let err = new Error('Unauthorized to access the resources');
                 err.status = 401;
                 return next(err);
             }
+        } else {
+            let err = new Error('Cannot find an offer with this id');
+            err.status = 404;
+            return next(err);
         }
     })
     .catch(err=>next(err));
