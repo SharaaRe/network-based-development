@@ -10,9 +10,9 @@
                     <%})%>
               </select>
                 <br>
-              Title: <input type="title" id="trade-title" name="title" value = "<%= trade.title%>">
+              Title: <input type="title" id="trade-title" name="title" value = "<%= trade.title%>" required>
                 <br>
-              Details: <textarea id="trade-details" name="discription"><%= trade.discription%></textarea>
+              Details: <textarea id="trade-details" name="discription" required><%= trade.discription%></textarea>
               <br>
               <input type="submit">
         </form>      
