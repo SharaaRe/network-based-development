@@ -1,4 +1,3 @@
-// const {Model} = require('mongoose');
 const { Model } = require('mongoose');
 const model = require('../models/trade');
 
@@ -22,6 +21,7 @@ exports.new = (req, res)=>{
 
 exports.create = (req, res, next)=>{
     let trade = new model(req.body);
+    trade.owner = req.session.user;
     console.log(trade);
     trade.save()
     .then(res.redirect('/trades/' + trade.id))
@@ -37,12 +37,8 @@ exports.create = (req, res, next)=>{
 
 exports.show = (req, res, next)=>{
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid story id');
-        err.status = 400;
-        next(err);
-    }
-    model.findById(id)
+
+    model.findById(id).populate('owner', 'firstName lastName')
     .then(trade=> {
         if (trade) {
             console.log('trade: ', trade);
@@ -64,11 +60,6 @@ exports.show = (req, res, next)=>{
 
 exports.edit = (req, res, next)=>{
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid story id');
-        err.status = 400;
-        next(err);
-    }
     model.findById(id).
     then(trade=>{
 
@@ -90,11 +81,6 @@ exports.edit = (req, res, next)=>{
 
 exports.update = (req, res, next)=>{
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid story id');
-        err.status = 400;
-        next(err);
-    }
     model.findByIdAndUpdate(id, req.body, {userFindAndModify: false, runValidators: true})
     .then(trade=>{
          if(trade){
@@ -117,11 +103,6 @@ exports.update = (req, res, next)=>{
 
 exports.delete = (req, res, next)=>{
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error('Invalid story id');
-        err.status = 400;
-        next(err);
-    }
     model.findByIdAndDelete(id, {userFindAndModify: false})
     .then(trade=>{
          if(trade){

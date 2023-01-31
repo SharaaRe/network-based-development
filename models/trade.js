@@ -10,12 +10,12 @@ const tradeSchema = new Schema({
     discription: {type: String, required: [true, 'Discription is required']},
     stat: {type: String, enum: ['sold', 'notSold'], default: 'notSold'},
     category: {type: String, required:[true, 'category is required'], enum: ['Anime', 'Manga', 'Accessories', 'Action Figures']},
-    image: {type: String, default: 'image_not_available.png'}
+    image: {type: String, default: 'image_not_available.png'},
+    owner: {type: Schema.Types.ObjectId, ref: 'User'}
 },
 {timeseries: true}
 );
 
 
 module.exports = mongoose.model('Trade', tradeSchema);
-
 

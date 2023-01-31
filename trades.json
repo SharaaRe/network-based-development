@@ -1,0 +1,97 @@
+[{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b1c"
+  },
+  "owner": {
+    "$oid": "637e96e0f4f8575044eb39d9"
+  },
+  "title": "Attack on Titan Vol 1",
+  "discription": "In this post-apocalytpic sci-fi story, humanity has been deva'stat'ed by the bizarre, giant humanoids known as the Titans. Little is known about where they came from or why they are bent on consuming mankind. Seemingly unintelligent, they have roamed the world for years, killing everyone they see. For the past century, what's left of man has hidden in a giant, three-walled city. People believe their 50-meter-high walls will protect them from the Titans, but the sudden appearance of an immense Titan is about to change everything.",
+  "stat": "notSold",
+  "image": "AOTv1.jpg",
+  "category": "Anime"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b1d"
+  },
+  "owner": {
+    "$oid": "637e96e0f4f8575044eb39d9"
+  },
+  "title": "Demon Slayer (Kimetsu no Yaiba)",
+  "discription": "After their rehabilitation training, Tanjiro and his comrades begin their next mission on the Mugen Train, where over 40 people have disappeared. With one of the most powerful swordsmen, Flame Hashira Kyojuro Rengoku, they face the nightmare on board.",
+  "stat": "notSold",
+  "image": "AOTv1.jpg",
+  "category": "Anime"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b1e"
+  },
+  "owner": {
+    "$oid": "637e96e0f4f8575044eb39d9"
+  },
+  "title": "Levi Action Figure",
+  "discription": "Levi action figure - Levi Ackerman (リヴァイ・アッカーマン Rivai Akkāman?), often formally referred to as Captain Levi (リヴァイ兵長 Rivai Heichō?), is the squad captain (兵士長 Heishichō?, lit. 'leader of the soldiers') of the Special Operations Squad within the Survey Corps and is widely known as humanity's strongest soldier",
+  "stat": "notSold",
+  "image": "levi.jpg",
+  "category": "Action Figures"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b1f"
+  },
+  "owner": {
+    "$oid": "637e96e0f4f8575044eb39d9"
+  },
+  "title": "Tanjiro Kamado Action Figure",
+  "discription": "Banpresto Demon Slayer: Kimetsu No Yaiba Maximatic Tanjiro Kamado Figure",
+  "stat": "notSold",
+  "image": "tanjiro_kamado.jpg",
+  "category": "Action Figures"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b20"
+  },
+  "owner": {
+    "$oid": "637fa587bfb2abdbad9d34b5"
+  },
+  "title": "Attack on Titan Vol 1",
+  "discription": "In this post-apocalytpic sci-fi story, humanity has been deva'stat'ed by the bizarre, giant humanoids known as the Titans. Little is known about where they came from or why they are bent on consuming mankind. Seemingly unintelligent, they have roamed the world for years, killing everyone they see. For the past century, what's left of man has hidden in a giant, three-walled city. People believe their 50-meter-high walls will protect them from the Titans, but the sudden appearance of an immense Titan is about to change everything.",
+  "stat": "notSold",
+  "image": "AOTv1.jpg",
+  "category": "Manga"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b21"
+  },
+  "owner": {
+    "$oid": "637fa587bfb2abdbad9d34b5"
+  },
+  "title": "Deamon Slayer Vol 1",
+  "discription": "After their rehabilitation training, Tanjiro and his comrades begin their next mission on the Mugen Train, where over 40 people have disappeared. With one of the most powerful swordsmen, Flame Hashira Kyojuro Rengoku, they face the nightmare on board.",
+  "stat": "notSold",
+  "image": "demonslayer.jpg",
+  "category": "Manga"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b22"
+  },
+  "owner": {
+    "$oid": "637fa587bfb2abdbad9d34b5"
+  },
+  "title": "Attack on Titan T-Shirt",
+  "discription": "",
+  "stat": "notSold",
+  "image": "aottshirt.jpg",
+  "category": "Accessories"
+},{
+  "_id": {
+    "$oid": "63857dca9cfa5170ce439b23"
+  },
+  "owner": {
+    "$oid": "637e96e0f4f8575044eb39d9"
+  },
+  "title": "Deamon Slayer Back Packs",
+  "discription": "Demon Slayer Back Pack with Tanjiro Kamado Pattern ",
+  "stat": "notSold",
+  "image": "demonslayerbackpack.jpg",
+  "category": "Accessories"
+}]
