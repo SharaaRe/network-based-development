@@ -1,0 +1,37 @@
+<%- include('../partials/header.ejs')%>
+
+    <main>
+    <ul class="trending-trades">
+    <h2>Welcome, <%=user.firstName%></h2>
+        <% if (trades.length) { %>
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Status</td>
+            </tr>
+            <%trades.forEach(trade => {%>
+            <tr>
+                <td>                
+                    <a href="/trades/<%=trade.id%>"><%=trade.title%></a></li>
+                </td>
+                <td><%=trade.category%></td>
+                <td><%=trade.stat%></td>
+                <td>
+                    <form>
+                        <button type = "submit" formmethod = "GET" formaction = "/trades/<%= trade.id%>/edit">Edit</button>
+                        <button type = "submit" formmethod = "POST" formaction = "/trades/<%= trade.id%>?_method=DELETE">Delete</button>
+                     </form>
+                </td>
+                
+            </tr>
+            <%})%>
+        </table>
+        <%} else {%>
+            <p>You haven't created any trades yet!</p>
+        <%}%>
+
+    </ul>
+    </main>
+
+    <%- include('../partials/footer.ejs')%>

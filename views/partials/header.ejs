@@ -22,8 +22,14 @@
     <body>
             <nav class="usernav">
                 <ul>
-                    <li ><a class="nav-item" href="">Sign in </a></li>
-                    <li ><a class="nav-item" href="">Sign up </a></li>
+                    <% if (!user) { %>
+
+                        <li><a class="nav-item" href="/users/new"> Sign up </a> </li>
+                        <li><a class="nav-item" href="/users/login"> Log in </a> </li>
+                    <%} else {%>
+                        <li><a class="nav-item" href="/users/profile"> Profile </a> </li>
+                        <li><a class="nav-item" href="/users/logout"> Log out </a> </li>
+                     <%}%>
 
                 </ul>
             </nav>
@@ -44,7 +50,26 @@
             <ul>
                 <li><a class="nav-item" href="/"> Home </a> </li>
                 <li><a class="nav-item" href="/trades"> Trades </a> </li>
-                <li><a class="nav-item" href="/trades/new"> Create </a> </li>
+        <% if (user) { %>
+            <li><a class="nav-item" href="/trades/new"> Create </a> </li>
+         <%}%>
 
             </ul>
         </nav>
+
+         <% if(errorMessages.length > 0) {%>
+        <% errorMessages.forEach(message=>{%>
+            <div class='error'>
+                <%=message%>
+            </div>
+            <%});%>
+                <%}%>
+    
+                    <% if(successMessages.length > 0) {%>
+    
+                        <% successMessages.forEach(message=>{%>
+                            <div class='success'>
+                                <%=message%>
+                            </div>
+                            <%});%>
+                                <%}%>

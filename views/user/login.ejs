@@ -1,0 +1,15 @@
+
+<%- include('../partials/header.ejs')%>
+<main class="main-content">
+    <div class="new-trade">
+        <h2>Sign Up</h2>
+        <form action = '/users/login' method = 'POST'>            
+                Email: <input type="email" id="email" name="email", required>
+              <br>
+                Password: <input type="password" id="password" name="password", required>
+              <br>
+              <input type="submit">
+        </form>
+    </div>
+</main>
+<%- include('../partials/footer.ejs')%>

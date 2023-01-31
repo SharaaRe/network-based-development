@@ -12,7 +12,7 @@
                         <%trades.forEach(trade => {%>
                             <%console.log(trade)%>
                             <%if (trade.category === category) { %>
-                                <li> <a href="trades/<%=trade.id%>"><%=trade.title%></a></li>
+                                <li> <a href="/trades/<%=trade.id%>"><%=trade.title%></a></li>
 
                             <%}%>
                         <%})%>
