@@ -9,13 +9,10 @@
             <h3 style="vertical-align:middle; display:inline;"><%=trade.title%> <small></small> </h3> 
             <h5><%=trade.category%></h5>
             <small>Posted <%=trade.createdAt%>by <%= trade.owner.firstName + ' ' + trade.owner.lastName%></small> 
-            <% if(user == trade.owner._id) { %>
+            <!-- <% if(user == trade.owner._id) { %>
 
-                <form aligning="left">
 
-                    <button type= "submit" formethod = "GET" formaction ="/trades/<%=trade.id%>/edit">Edit</button>
-                </form> 
-            <%}%>
+            <%}%> -->
 
             <p><img class="trade-info" src="/images/<%=trade.image%>"></p>
 
@@ -25,23 +22,25 @@
             <!-- <p style="vertical-align:middle; display:inline;"><%=trade.discription%></p> -->
         </div>
         <div class="trade-details">
+            <h5><%=trade.stat%></h5>
             <h3>Details</h3>
             <p> <%=trade.discription%></p>
-            <% if(user.id == trade.owner._id) { %>
-                <form method="POST" action = "/trades/<%=trade.id%>?_method=DELETE">
-                    <button type= "submit">Delete</button>    
-                </form>
-            <%}else{%>
+            <% if(user && user.id == trade.owner._id) { %>
                 <form >
-                <button type = "submit" method="GET" action = "/offers/<%=trade.id%>/new">Trade</button>
-                <%console.log(user)%>
-                <%if (user.watchlist.includes(trade.id)){%>
+                    <button type= "submit" formmethod = "POST" formaction ="/trades/<%=trade._id%>?_method=DELETE">Delete</button>
+                    <button type= "submit" formmethod = "GET" formaction ="/trades/<%=trade._id%>/edit">Edit</button>
+    
+                </form>
+            <%}else if (trade.stat === 'available'){%>
+                <form >
+                    <button type = "submit" formmethod="GET" formaction = "/offers/<%=trade._id%>/new">Trade</button>
+                <%if (user && user.watchlist.includes(trade.id)){%>
                     <button type = "submit" formmethod = "POST" formaction = "/trades/<%=trade.id%>/watchlist?_method=DELETE">Remove from Watchlist</button>
                 <%} else {%>
                     <button type = "submit" formmethod = "POST" formaction = "/trades/<%=trade.id%>/watchlist">Add To Watchlist</button>
 
                 <%}%>
-                 </form>
+                </form>
 
             <%}%>
 

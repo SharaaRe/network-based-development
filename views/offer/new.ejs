@@ -5,6 +5,7 @@
         <h2>Create an Offer</h2>
         <form action = '/offers' method = 'POST'>   
             <input type="hidden" id="receiverItem" name="receiverItem" value="<%=trade._id%>">
+            
             Select an item to trade with <a href="/trades/<%=trade._id%>"><%=trade.title%></a> offered by <%=trade.owner.firstName%> <%=trade.owner.lastName%>:
             <%if (ownerItems.length) {%>
                 <table>

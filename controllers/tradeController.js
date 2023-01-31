@@ -2,6 +2,7 @@ const { Model } = require('mongoose');
 const { findById, findByIdAndUpdate } = require('../models/offer');
 const user = require('../models/user');
 const model = require('../models/trade');
+const offer = require('../models/offer');
 
 
 // GET /stories: send all stories to the user
@@ -111,7 +112,18 @@ exports.delete = (req, res, next)=>{
     model.findByIdAndDelete(id, {userFindAndModify: false})
     .then(trade=>{
          if(trade){
-             res.redirect('/trades');
+            Promise.all([
+                offer.findOneAndDelete({ownerItem: id}),
+                offer.findOneAndDelete({receiverItem: id})
+            ]).then(results=>{
+                const [ownerOffer, receiverOffer] = results;
+                if (ownerOffer){
+                    trade.findByIdAndUpdate(ownerOffer.receiverItem, {'stat': 'availabe', 'offer': null});
+                } else if (receiverItem) {
+                    trade.findByIdAndUpdate(receiverOffer.ownerItem, {'stat': 'availabe', 'offer': null});
+                }
+            })
+             res.redirect('/users/profile');
          }else{
              let err = new Error('Cannot find a trade with id ' + id);
              err.status = 404;
@@ -126,12 +138,16 @@ exports.watchlist = (req, res, next) => {
     model.findById(id)
     .then(trade=>{
         if (trade) {
+            if (user && trade.owner === req.session.user._id){
+                req.flash('error', 'The item ' + trade.title + ' is your own item, you cannot add it to the watchlist!');
+                res.redirect('back');
+            }
             user.updateOne({_id: req.session.user}, {$addToSet: {watchlist: id}})
             .then(result=>{
                 console.log(result);
                 if(result.modifiedCount){
                     req.flash('success', 'The item ' + trade.title + ' is successfully added to your watchlist!');
-                    res.redirect('/users/profile');
+                    res.redirect('back');
                 }else {
                     let err = new Error('Unable to add item to the watchlist!');
                     err.status = 503;

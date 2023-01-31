@@ -63,8 +63,8 @@ exports.profile = (req, res, next)=>{
     Promise.all([
         model.findById(id).populate('watchlist'),
         Trade.find({owner: id}), 
-        Offer.find({owner: id, stat: 'pending'}).populate('ownerItem'), 
-        Offer.find({receiver:id, stat:'pending'}).populate('receiverItem'),
+        Offer.find({owner: id, stat: 'pending'}).populate('ownerItem').populate('receiverItem'), 
+        Offer.find({receiver:id, stat:'pending'}).populate('receiverItem').populate('ownerItem'),
     ])
     .then(results=>{
         const [user, trades, sentOffers, receivedOffers] = results;

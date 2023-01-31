@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/offerController')
 const {isAuthenticated, isAuthor, isOfferRelated, isOwner, isReceiver, isTradeOwner} = require('../middlewares/auth');
-const {validateid} = require('../middlewares/validator');
+const {validateid, validateOffer} = require('../middlewares/validator');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/:id/new', isAuthenticated, controller.new);
 
 // POST /offers/ create a new trade
 
-router.post('/', isAuthenticated, isTradeOwner, controller.create);
+router.post('/', validateOffer, isAuthenticated, isTradeOwner, controller.create);
 
 // // GET /offers/:id: send details of a trades identified by id
 
@@ -22,13 +22,13 @@ router.get('/:id', validateid, isAuthenticated, isOfferRelated, controller.show)
 
 
 // PUT /offers/:id/reject reject the trade offer
-router.put('/:id/reject', isAuthenticated, validateid, isReceiver, controller.reject);
+router.put('/:id/reject', validateid, isAuthenticated, validateid, isReceiver, controller.reject);
 
 
 // PUT /offers/:id/accept accept the trade offer
-router.put('/:id/accept', isAuthenticated, validateid, isReceiver, controller.accept);
+router.put('/:id/accept', validateid, isAuthenticated, validateid, isReceiver, controller.accept);
 
 
-router.delete('/:id', validateid, isOwner, controller.delete);
+router.delete('/:id', validateid, validateid, isOwner, controller.delete);
 
 module.exports = router;

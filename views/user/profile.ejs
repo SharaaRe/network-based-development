@@ -45,7 +45,8 @@
                 </tr>
                 <%user.watchlist.forEach(trade => {%>
                 <tr>
-                    <td><%=trade.title%></td>
+                    <td><a href="/trades/<%=trade._id%>"><%=trade.title%></a></li>
+                    </td>
                     <td><%=trade.category%></td>
                     <td><%=trade.stat%></td>
                     <td>
@@ -64,16 +65,21 @@
 
         <h3>Sent Offers</h3>
         <% if (sentOffers.length) { %>
+            <%console.log(sentOffers)%>
             <table>
                 <tr>
-                    <td>Trading Item</td>
+                    <td>Your Item</td>
+                    <td>Category</td>
+                    <td>Receiver Item</td>
                     <td>Category</td>
                     <td>Status</td>
                 </tr>
                 <%sentOffers.forEach(offer => {%>
                 <tr>
-                    <td><%=offer.ownerItem.title%></td>
+                    <td><a href="/offers/<%=offer.ownerItem._id%>"><%=offer.ownerItem.title%></a></td>
                     <td><%=offer.ownerItem.category%></td>
+                    <td><a href="/offers/<%=offer.receiverItem._id%>"><%=offer.receiverItem.title%></a></td>
+                    <td><%=offer.receiverItem.category%></td>
                     <td><%=offer.stat%></td>
                     <td>
                         <form>
@@ -93,14 +99,21 @@
         <% if (receivedOffers.length) { %>
             <table>
                 <tr>
-                    <td>Trading Item</td>
+
+                    <td>Your Item</td>
+                    <td>Category</td>
+                    <td>Sender Item</td>
                     <td>Category</td>
                     <td>Status</td>
                 </tr>
-                <%receivedOffers.forEach(offer => {%>
+                <%sentOffers.forEach(offer => {%>
                 <tr>
-                    <td><%=offer.receiverItem.title%></td>
+                    <td><a href="/offers/<%=offer.receiverItem._id%>"><%=offer.receiverItem.title%></a></td>
                     <td><%=offer.receiverItem.category%></td>
+
+                    <td><a href="/offers/<%=offer.ownerItem._id%>"><%=offer.ownerItem.title%></a></td>
+                    <td><%=offer.ownerItem.category%></td>
+
                     <td><%=offer.stat%></td>
                     <td>
                         <form>

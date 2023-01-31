@@ -51,7 +51,11 @@ exports.create = (req, res, next)=>{
                     ownerItem.offer = offer.id;
 
                     Promise.all([receiverItem.save(), ownerItem.save()])
-                    .then(results => res.redirect('/users/profile'))
+                    .then(results => {
+                        req.flash('success', 'You successfully created an offer!');
+
+                        res.redirect('/users/profile');
+                    })
                     .catch(err=>next(err));
                 })
                 .catch(err => {
